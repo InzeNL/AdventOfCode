@@ -1,10 +1,13 @@
 {
   "name": "adventofcode",
-  "version": "2015.12.3",
+  "version": "2015.12.4",
   "description": "Advent of Code",
   "main": "d1p1.js",
-  "dependencies": {},
+  "dependencies": {
+    "md5": "^2.2.1"
+  },
   "devDependencies": {
+    "@types/md5": "^2.1.33",
     "@types/node": "^10.12.12",
     "@types/npm": "^2.0.29"
   },

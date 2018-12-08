@@ -1,6 +1,6 @@
 {
   "name": "adventofcode",
-  "version": "2018.12.6",
+  "version": "2018.12.7",
   "description": "Advent of Code",
   "main": "d1p1.js",
   "scripts": {

@@ -1,0 +1,24 @@
+{
+  "name": "adventofcode",
+  "version": "2019.12.1",
+  "description": "Advent of Code",
+  "main": "d1p1.js",
+  "dependencies": {},
+  "devDependencies": {
+    "@types/node": "^14.14.6",
+    "@types/npm": "^2.0.31"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/InzeNL/AdventOfCode.git"
+  },
+  "author": "Inze Bielderman (InzeNL)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/InzeNL/AdventOfCode/issues"
+  },
+  "homepage": "https://github.com/InzeNL/AdventOfCode#readme"
+}

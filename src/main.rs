@@ -2,27 +2,11 @@ use std::fs;
 use regex::Regex;
 
 fn main() {
-    // let mut lines = Vec::new();
-    //
-    // for line in fs::read_to_string("input/1.txt").unwrap().lines() {
-    //     lines.push(line.to_string());
-    // }
-    //
-    // let mut sum = 0;
-    //
-    // for line in lines {
-    //     let re = Regex::new(r"(\d)").unwrap();
-    //     let first_line = line.chars().collect::<String>();
-    //     let last_line = line.chars().rev().collect::<String>();
-    //     let Some(first_caps) = re.captures(&*first_line) else { return };
-    //     let Some(second_caps) = re.captures(&*last_line) else { return };
-    //     let digits = first_caps[1].to_owned() + &second_caps[1];
-    //     let actual_digits = digits.parse::<i32>().unwrap();
-    //     sum += actual_digits;
-    // }
-    //
-    // println!("Part 1: {}", sum);
+    day1part1();
+    day1part2();
+}
 
+fn day1part1() {
     let mut lines = Vec::new();
 
     for line in fs::read_to_string("input/1.txt").unwrap().lines() {
@@ -31,9 +15,32 @@ fn main() {
 
     let mut sum = 0;
 
+    let re = Regex::new(r"(\d)").unwrap();
     for line in lines {
-        let re = Regex::new(r"^.*?(\d|one|two|three|four|five|six|seven|eight|nine).*$").unwrap();
-        let second_re = Regex::new(r".*(\d|one|two|three|four|five|six|seven|eight|nine).*?$").unwrap();
+        let first_line = line.chars().collect::<String>();
+        let last_line = line.chars().rev().collect::<String>();
+        let Some(first_caps) = re.captures(&*first_line) else { return };
+        let Some(second_caps) = re.captures(&*last_line) else { return };
+        let digits = first_caps[1].to_owned() + &second_caps[1];
+        let actual_digits = digits.parse::<i32>().unwrap();
+        sum += actual_digits;
+    }
+
+    println!("Day 1, Part 1: {}", sum);
+}
+
+fn day1part2() {
+    let mut lines = Vec::new();
+
+    for line in fs::read_to_string("input/1.txt").unwrap().lines() {
+        lines.push(line.to_string());
+    }
+
+    let mut sum = 0;
+
+    let re = Regex::new(r"^.*?(\d|one|two|three|four|five|six|seven|eight|nine).*$").unwrap();
+    let second_re = Regex::new(r".*(\d|one|two|three|four|five|six|seven|eight|nine).*?$").unwrap();
+    for line in lines {
         let first_line = line.chars().collect::<String>();
         let Some(first_caps) = re.captures(&*first_line) else { println!("Hey"); return };
         let Some(second_caps) = second_re.captures(&*first_line) else { println!("Hi"); return };
@@ -52,5 +59,5 @@ fn main() {
         sum += actual_digits;
     }
 
-    println!("Part 2: {}", sum);
+    println!("Day 1, Part 2: {}", sum);
 }

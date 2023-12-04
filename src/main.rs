@@ -1,7 +1,8 @@
-mod day1;
 mod input;
+mod day1;
 mod day2;
 mod day3;
+mod day4;
 
 fn main() {
     use std::time::Instant;
@@ -13,6 +14,8 @@ fn main() {
     day2::part2();
     day3::part1();
     day3::part2();
+    day4::part1();
+    day4::part2();
 
     let elapsed = now.elapsed();
     println!("Total run time: {:?}", elapsed);

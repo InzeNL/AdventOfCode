@@ -17,7 +17,7 @@ pub fn part1() {
         }
     }
 
-    println!("Day 3, Part 1: {}", sum);
+    println!("Day 4, Part 1: {}", sum);
 }
 
 fn get_list_of_numbers(list: &str) -> Vec<i32> {
@@ -58,5 +58,5 @@ pub fn part2() {
         sum += copies[i];
     }
 
-    println!("Day 3, Part 2: {}", sum);
+    println!("Day 4, Part 2: {}", sum);
 }

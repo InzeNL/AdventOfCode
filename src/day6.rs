@@ -54,8 +54,6 @@ fn calculate_big_distance(total_time: i64, button_time: i64) -> i64 {
 pub fn part2() {
     let lines = input::read_as_list(6);
 
-    let mut product = 1;
-
     let re_text = Regex::new(r"[a-zA-Z:\s]").unwrap();
     let time = &re_text.replace_all(&lines[0], "").to_string().parse::<i64>().unwrap();
     let distance_to_beat = &re_text.replace_all(&lines[1], "").to_string().parse::<i64>().unwrap();
@@ -79,7 +77,7 @@ pub fn part2() {
         }
     }
 
-    product = last_time_beat - first_time_beat + 1;
+    let product = last_time_beat - first_time_beat + 1;
 
     println!("Day 6, Part 2: {}", product);
 }

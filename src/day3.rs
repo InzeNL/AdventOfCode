@@ -122,6 +122,5 @@ pub fn part2() {
         }
     }
 
-
     println!("Day 3, Part 2: {}", sum);
 }

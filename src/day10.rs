@@ -1,7 +1,8 @@
 use iron_shapes::multi_polygon::WindingNumber;
 use iron_shapes::point::Point;
-use iron_shapes::polygon::{Polygon, SimplePolygon};
-use iron_shapes::simple_polygon::DoubledOrientedArea;
+use iron_shapes::polygon::{SimplePolygon};
+use rayon::iter::ParallelIterator;
+use rayon::iter::IntoParallelIterator;
 use crate::input;
 
 pub fn part1() {
@@ -247,15 +248,17 @@ pub fn part2() {
 
     let polygon = SimplePolygon::from(points);
     let mut area = 0;
-    for i in 0..lines.len() {
-        for j in 0..lines[i].len() {
-            if map[i][j] == -1 {
-                if (polygon.contains_point(Point::new(j as i32, i as i32))) {
-                    area += 1;
+
+    area = (0..lines.len()).into_par_iter().map(|y| {
+        return (0..lines[y].len()).into_par_iter().map(|x| {
+            if map[y][x] == -1 {
+                if polygon.contains_point(Point::new(x as i32, y as i32)) {
+                    return 1;
                 }
             }
-        }
-    }
+            return 0;
+        }).sum::<i32>();
+    }).sum::<i32>();
 
     println!("Day 10, Part 2: {}", area);
 }

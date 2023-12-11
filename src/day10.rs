@@ -127,7 +127,7 @@ pub fn part1() {
 }
 
 pub fn part2() {
-    let mut lines = input::read_as_list(10);
+    let lines = input::read_as_list(10);
 
     let mut start_x = 0;
     let mut start_y = 0;
@@ -173,10 +173,8 @@ pub fn part2() {
 
     let mut current_x = start_x;
     let mut current_y = start_y;
-    let mut current_distance = 0;
     let mut current_direction = first_direction;
     while !looped_around {
-        current_distance += 1;
         map[current_y][current_x] = 0;
         points.push(Point::new(current_x as i32, current_y as i32));
 
@@ -247,9 +245,8 @@ pub fn part2() {
     }
 
     let polygon = SimplePolygon::from(points);
-    let mut area = 0;
 
-    area = (0..lines.len()).into_par_iter().map(|y| {
+    let area = (0..lines.len()).into_par_iter().map(|y| {
         return (0..lines[y].len()).into_par_iter().map(|x| {
             if map[y][x] == -1 {
                 if polygon.contains_point(Point::new(x as i32, y as i32)) {

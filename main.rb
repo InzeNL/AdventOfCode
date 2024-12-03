@@ -1,0 +1,1 @@
+require './days/day1.rb'

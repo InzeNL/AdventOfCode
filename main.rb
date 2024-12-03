@@ -11,34 +11,46 @@ if ARGV[0] == nil
     return String(runtime).split(/\s+/)[-1][0..-2]
   end
 
-  (1..3).each do |day|
+  (1..25).each do |day|
     day = String(day)
 
-    require_relative "./days/day" + day
+    begin
+      require_relative "./days/day" + day
+    rescue LoadError
+      break
+    end
 
     dayClass = Object.const_get("Day" + day).new
 
     result = nil
 
-    runtime = Benchmark.measure {
-      result = dayClass.send("part1")
-    }
-    total_runtime += runtime
-    
-    days << day
-    parts << "1"
-    results << String(result)
-    runtimes << format_runtime(runtime)
-    
-    runtime = Benchmark.measure {
-      result = dayClass.send("part2")
-    }
-    total_runtime += runtime
+    begin
+      runtime = Benchmark.measure {
+        result = dayClass.send("part1")
+      }
 
-    days << day
-    parts << "2"
-    results << String(result)
-    runtimes << format_runtime(runtime)
+      total_runtime += runtime
+      
+      days << day
+      parts << "1"
+      results << String(result)
+      runtimes << format_runtime(runtime)
+      
+    rescue NoMethodError
+    end
+    
+    begin
+      runtime = Benchmark.measure {
+        result = dayClass.send("part2")
+      }
+      total_runtime += runtime
+
+      days << day
+      parts << "2"
+      results << String(result)
+      runtimes << format_runtime(runtime)
+    rescue NoMethodError
+    end
   end
 
   def max_string_length_in_array_and_term(array, term, additional_max = 0)

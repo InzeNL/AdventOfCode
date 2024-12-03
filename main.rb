@@ -11,7 +11,7 @@ if ARGV[0] == nil
     return String(runtime).split(/\s+/)[-1][0..-2]
   end
 
-  (1..2).each do |day|
+  (1..3).each do |day|
     day = String(day)
 
     require_relative "./days/day" + day

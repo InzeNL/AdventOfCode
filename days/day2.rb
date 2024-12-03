@@ -3,10 +3,6 @@ class Day2
 
   @@input_parser_helper = InputParserHelper.new(2)
 
-  def initialize()
-    
-  end
-
   def part1()
     @safe_reports = 0
     @@input_parser_helper.get_lines_and_perform(method(:count_safe_reports))

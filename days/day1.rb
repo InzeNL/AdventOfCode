@@ -9,7 +9,7 @@ class Day1
     end
     
     def assign_numbers_to_columns(line) 
-        splitString = line.split(" ")
+        splitString = line.split(/\W+/)
 
         @leftColumn << Integer(splitString[0])
         @rightColumn << Integer(splitString[1])

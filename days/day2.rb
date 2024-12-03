@@ -73,23 +73,8 @@ class Day2
       parsed_reports << Integer(report)
     end
 
-    sorted_parsed_reports = parsed_reports.sort
-    reverse_sorted_parsed_reports = parsed_reports.sort.reverse
-
-    if (parsed_reports == sorted_parsed_reports || parsed_reports == reverse_sorted_parsed_reports)
-      is_safe = true
-      (1..parsed_reports.length() - 1).each do |index|
-        difference = (parsed_reports[index] - parsed_reports[index - 1]).abs
-        if (difference < 1 || difference > 3)
-          
-          is_safe = false
-          break
-        end
-      end
-
-      if (is_safe)
-        @safe_reports += 1
-      end
+    if (parsed_report_is_valid(parsed_reports))
+      @safe_reports += 1
     end
   end
 end

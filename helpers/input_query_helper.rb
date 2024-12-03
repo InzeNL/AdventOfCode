@@ -1,6 +1,6 @@
 class InputQueryHelper
     require 'httparty'
-    require_relative './configuration_helper.rb'
+    require_relative './configuration_helper'
 
     @@day_file_prefix = "inputs/day"
     @@day_file_suffix = ".txt"

@@ -31,6 +31,8 @@ class InputParserHelper
             lines << line
         end
 
+        file.close
+
         lines
     end
 
@@ -47,6 +49,26 @@ class InputParserHelper
             raise StandardError, "Expected day to be of class Regexp or String, was instead of type " + String(day.class)
         end
 
-        puts splitter.class
+        lines = []
+
+        file = File.open(@@file_name, "r")
+
+        file.each_line do |line|
+            lines << line.split(splitter)
+        end
+
+        file.close
+
+        lines
+    end
+
+    def get_lines_and_perform(action)
+        file = File.open(@@file_name, "r")
+
+        file.each_line do |line|
+            action.call(line)
+        end
+
+        file.close
     end
 end

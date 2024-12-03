@@ -9,7 +9,7 @@ class Day1
     end
     
     def assign_numbers_to_columns(line) 
-        splitString = line.split(/\W+/)
+        splitString = line.split(/\s+/)
 
         @leftColumn << Integer(splitString[0])
         @rightColumn << Integer(splitString[1])
@@ -25,7 +25,7 @@ class Day1
             totalDistance += (left - sortedRightColumn[index]).abs
         end
 
-        puts totalDistance
+        return totalDistance
     end
 
     def part2()
@@ -35,6 +35,6 @@ class Day1
             similarityScore += left * @rightColumn.count(left)
         end
 
-        puts similarityScore
+        return similarityScore
     end
 end

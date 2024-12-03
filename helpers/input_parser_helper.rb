@@ -37,7 +37,7 @@ class InputParserHelper
     end
 
     def get_lines_split_on_whitespace()
-        return get_lines_split_on(/\W+/)
+        return get_lines_split_on(/\s+/)
     end
 
     def get_lines_split_on(splitter)

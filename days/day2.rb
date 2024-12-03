@@ -11,18 +11,18 @@ class Day2
     @safe_reports = 0
     @@input_parser_helper.get_lines_and_perform(method(:count_safe_reports))
 
-    puts @safe_reports
+    return @safe_reports
   end
 
   def part2()
     @safe_reports_with_tolerance = 0
     @@input_parser_helper.get_lines_and_perform(method(:count_safe_reports_with_tolerance))
     
-    puts @safe_reports_with_tolerance
+    return @safe_reports_with_tolerance
   end
 
   def count_safe_reports_with_tolerance(line)
-    reports = line.split(/\W/)
+    reports = line.split(/\s+/)
     parsed_reports = []
 
     reports.each do |report|
@@ -66,7 +66,7 @@ class Day2
   end 
 
   def count_safe_reports(line)
-    reports = line.split(/\W/)
+    reports = line.split(/\s+/)
     parsed_reports = []
 
     reports.each do |report|

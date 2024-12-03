@@ -1,12 +1,12 @@
 class Day3
   require_relative "../helpers/input_parser_helper"
 
-  def part1()
-    text = InputParserHelper.new(3).get_text()
+  @@text = InputParserHelper.new(3).get_text()
 
+  def part1()
     sum = 0;
 
-    text.scan(/mul\((\d+?),(\d+?)\)/).each do |multiplication|
+    @@text.scan(/mul\((\d+?),(\d+?)\)/).each do |multiplication|
       sum += Integer(multiplication[0]) * Integer(multiplication[1])
     end
 
@@ -14,12 +14,10 @@ class Day3
   end
 
   def part2()
-    text = InputParserHelper.new(3).get_text()
-
     sum = 0
     add = true
 
-    text.scan(/((don't)|(do\(\))|(mul\((\d+?),(\d+?)\)))/).each do |result|
+    @@text.scan(/((don't)|(do\(\))|(mul\((\d+?),(\d+?)\)))/).each do |result|
       if (result[1] != nil)
         add = false
       end

@@ -1,9 +1,11 @@
 class Day4
   require_relative '../helpers/input_parser_helper'
 
+  @@InputParserHelper = InputParserHelper.new(4)
+
   def part1()
     word = "XMAS"
-    lines = InputParserHelper.new(4).get_lines_split_on("")
+    lines = @@InputParserHelper.get_lines_split_on("")
 
     horizontal = []
     vertical = []
@@ -68,15 +70,15 @@ class Day4
     ])
   end
 
-def count_word_in_arrays(word, arrays)
-  sum = 0
+  def count_word_in_arrays(word, arrays)
+    sum = 0
 
-  arrays.each do |array|
-    sum += count_word_in_array(word, array)
+    arrays.each do |array|
+      sum += count_word_in_array(word, array)
+    end
+
+    return sum
   end
-
-  return sum
-end
 
   def count_word_in_array(word, array)
     sum = 0
@@ -87,5 +89,32 @@ end
     end
 
     return sum
+  end
+
+  def part2()
+    character_L = "M"
+    character_M = "A"
+    character_R = "S"
+
+    lines = @@InputParserHelper.get_lines()
+
+    character_count = lines[0].length()
+    line_count = lines.length()
+
+    xmas_count = 0
+
+    (1..line_count - 2).each do |y|
+      (1..character_count - 2).each do |x|
+        if (lines[y][x] == character_M)
+          if ((lines[y-1][x-1] == character_L && lines[y + 1][x + 1] == character_R) || (lines[y-1][x-1] == character_R && lines[y + 1][x + 1] == character_L))
+            if ((lines[y-1][x+1] == character_L && lines[y + 1][x - 1] == character_R) || (lines[y-1][x+1] == character_R && lines[y + 1][x - 1] == character_L))
+              xmas_count += 1
+            end
+          end
+        end
+      end
+    end
+
+    return xmas_count
   end
 end

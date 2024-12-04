@@ -93,6 +93,8 @@ if ARGV[0] == nil
   days.each.with_index do |day, index|
     if (index > 0 && day == days[index - 1])
       day = ""
+    elsif (index > 0)
+      puts "|" + format_with_characters_in_front("-", max_day_length, "-") + "|"  + format_with_characters_in_front("-", max_part_length, "-") + "|"  + format_with_characters_in_front("-", max_result_length, "-") + "|"  + format_with_characters_in_front("-", max_runtime_length, "-") + "|"
     end
 
     puts "|"  + format_with_characters_in_back(day, max_day_length) + "|"  + format_with_characters_in_back(parts[index], max_part_length) + "|"  + format_with_characters_in_back(results[index], max_result_length) + "|"  + format_with_characters_in_back(runtimes[index], max_runtime_length) + "|"

@@ -28,7 +28,7 @@ class InputParserHelper
         file = File.open(@@file_name, "r")
 
         file.each_line do |line|
-            lines << line
+            lines << line.gsub("\n", "")
         end
 
         file.close
@@ -54,7 +54,7 @@ class InputParserHelper
         file = File.open(@@file_name, "r")
 
         file.each_line do |line|
-            lines << line.split(splitter)
+            lines << line.gsub("\n", "").split(splitter)
         end
 
         file.close
@@ -66,7 +66,7 @@ class InputParserHelper
         file = File.open(@@file_name, "r")
 
         file.each_line do |line|
-            action.call(line)
+            action.call(line.gsub("\n", ""))
         end
 
         file.close

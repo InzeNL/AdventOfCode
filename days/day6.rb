@@ -125,8 +125,6 @@ class Day6
       indexes << [x, y]
     end
 
-    lines = []
-
     indexes.each do |index|
       current_direction = "^"
 

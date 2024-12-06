@@ -111,4 +111,68 @@ class Day6
       return
     end
   end
+
+  def part2()
+    stored_lines = @@InputParserHelper.get_lines()
+
+    start_guard_position = find_guard(stored_lines)
+    start_guard_direction = @@current_direction
+
+    stored_lines[start_guard_position[1]][start_guard_position[0]] = "."
+
+    guard_move_count = 0
+
+    loop_count = 0
+
+    lines = stored_lines
+
+    (0..stored_lines.length() -1).each do |y_replace|
+      (0..stored_lines[0].length() - 1).each do |x_replace|
+        lines = stored_lines.map(&:clone)
+        lines[y_replace][x_replace] = "#"
+        guard_position = start_guard_position.map(&:clone)
+        @@current_direction = start_guard_direction
+        has_rotated = false
+        looped = 0
+
+        while (true)      
+            next_position = get_next_position(guard_position)
+            x = next_position[0]
+            y = next_position[1]
+      
+            if (x < 0 || x >= lines[0].length() || y < 0 || y >= lines.length())
+              break
+            end
+      
+            next_character = lines[y][x]
+
+            x_now = guard_position[0]
+            y_now = guard_position[1]
+
+            if (next_character == "#")
+              if (lines[y_now][x_now] == "X")
+                if (looped >= 4)
+                  loop_count += 1
+                  break
+                end
+                
+                looped += 1
+              end
+
+              rotate_guard()
+              has_rotated = true
+            else
+              if (lines[y_now][x_now] != "X")
+                lines[y_now][x_now] = "X"
+              end
+
+              guard_position = next_position
+              guard_move_count += 1
+            end
+          end
+        end
+      end
+    
+    return loop_count
+    end
 end

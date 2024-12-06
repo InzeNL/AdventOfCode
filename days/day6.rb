@@ -49,15 +49,26 @@ class Day6
   def find_guard(lines)
     guard_position = []
 
+    threads = []
+
     lines.each.with_index do |line, index|
-      jindex = nil
+      threads << Thread.new {
+        jindex = nil
 
-      jindex = line.index("^")
+        jindex = line.index("^")
 
-      if (jindex != nil)
-        guard_position = [jindex, index]
-        break
-      end
+        if (jindex != nil)
+          guard_position = [jindex, index]
+
+          threads.each do |thread|
+            Thread.kill(thread)
+          end
+        end
+      }
+    end
+
+    threads.each do |thread|
+      thread.join
     end
 
     return guard_position

@@ -170,7 +170,7 @@ class Day6
 
           if (next_character == "#")
             if (lines[y_now][x_now] == "X")
-              if (looped >= 4)
+              if (looped >= 3)
                 loop_count += 1
                 break
               end

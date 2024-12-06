@@ -12,9 +12,7 @@ class Day6
 
   @@current_direction = nil
 
-  def part1()
-    lines = @@InputParserHelper.get_lines()
-
+  def get_marked_walk_output(lines)
     guard_position = find_guard(lines)
 
     guard_move_count = 0
@@ -42,7 +40,14 @@ class Day6
       end
     end
 
-    return lines.join("").count("X")
+    return lines.join("")
+  end
+
+  def part1()
+    lines = @@InputParserHelper.get_lines()
+    lines = get_marked_walk_output(lines)
+
+    return lines.count("X")
   end
 
   def find_guard(lines)
@@ -113,7 +118,8 @@ class Day6
   end
 
   def part2()
-    stored_lines = @@InputParserHelper.get_lines()
+    lines = @@InputParserHelper.get_lines()
+    stored_lines = lines.map(&:clone)
 
     start_guard_position = find_guard(stored_lines)
     start_guard_direction = @@current_direction
@@ -124,10 +130,23 @@ class Day6
 
     loop_count = 0
 
-    lines = stored_lines
+    marked_walk_output = get_marked_walk_output(lines)
 
-    (0..stored_lines.length() -1).each do |y_replace|
-      (0..stored_lines[0].length() - 1).each do |x_replace|
+    i = -1
+    indexes = []
+    while (i = marked_walk_output.index('X', i + 1))
+      x = i % lines[0].length()
+      y = (i / lines[0].length()).floor()
+
+      indexes << [x, y]
+    end
+
+    lines = []
+
+    indexes.each do |index|
+      x_replace = index[0]
+      y_replace = index[1]
+      
         lines = stored_lines.map(&:clone)
         lines[y_replace][x_replace] = "#"
         guard_position = start_guard_position.map(&:clone)
@@ -136,43 +155,42 @@ class Day6
         looped = 0
 
         while (true)      
-            next_position = get_next_position(guard_position)
-            x = next_position[0]
-            y = next_position[1]
-      
-            if (x < 0 || x >= lines[0].length() || y < 0 || y >= lines.length())
-              break
-            end
-      
-            next_character = lines[y][x]
+          next_position = get_next_position(guard_position)
+          x = next_position[0]
+          y = next_position[1]
+    
+          if (x < 0 || x >= lines[0].length() || y < 0 || y >= lines.length())
+            break
+          end
+    
+          next_character = lines[y][x]
 
-            x_now = guard_position[0]
-            y_now = guard_position[1]
+          x_now = guard_position[0]
+          y_now = guard_position[1]
 
-            if (next_character == "#")
-              if (lines[y_now][x_now] == "X")
-                if (looped >= 4)
-                  loop_count += 1
-                  break
-                end
-                
-                looped += 1
+          if (next_character == "#")
+            if (lines[y_now][x_now] == "X")
+              if (looped >= 4)
+                loop_count += 1
+                break
               end
-
-              rotate_guard()
-              has_rotated = true
-            else
-              if (lines[y_now][x_now] != "X")
-                lines[y_now][x_now] = "X"
-              end
-
-              guard_position = next_position
-              guard_move_count += 1
+              
+              looped += 1
             end
+
+            rotate_guard()
+            has_rotated = true
+          else
+            if (lines[y_now][x_now] != "X")
+              lines[y_now][x_now] = "X"
+            end
+
+            guard_position = next_position
+            guard_move_count += 1
           end
         end
-      end
+    end
     
     return loop_count
-    end
+  end
 end

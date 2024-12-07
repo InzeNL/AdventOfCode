@@ -22,6 +22,10 @@ class Day7
   end
 
   def has_solution(target, numbers, current_result = 0)
+    if (current_result > target)
+      return false
+    end
+
     if (numbers.length() == 0)
       return target == current_result
     end

@@ -2,10 +2,17 @@ class InputQueryHelper
     require 'httparty'
     require_relative './configuration_helper'
 
-    @@day_file_prefix = "inputs/day"
+    @@inputs_folder = "inputs"
+    @@day_file_prefix = @@inputs_folder + "/day"
     @@day_file_suffix = ".txt"
 
     @@configuration_helper = ConfigurationHelper.new
+
+    def ensure_inputs_folder()
+        unless File.directory?(@@inputs_folder)
+            Dir.mkdir(@@inputs_folder)
+        end
+    end
 
     def ensure_input(day)
         if (day.class == Integer)
@@ -15,6 +22,8 @@ class InputQueryHelper
         if (day.class != String)
             raise StandardError, "Expected day to be of class String, was instead of type " + String(day.class)
         end
+
+        ensure_inputs_folder()
         
         file_name = get_file_name(day)
 

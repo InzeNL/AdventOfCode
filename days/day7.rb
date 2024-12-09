@@ -39,4 +39,44 @@ class Day7
     return has_solution(target, numbers.drop(1), current_result + next_number) || has_solution(target, numbers.drop(1), current_result * next_number)
   end
 
+  def part2()
+    lines = @@InputParserHelper.get_lines_split_on(": ")
+
+    total = 0
+
+    lines.each do |line|
+      target = Integer(line[0])
+      numbers = line[1].split(/\s+/).map(&:to_i)
+      has_solution = has_solution_with_concatenation(target, numbers)
+
+      if (has_solution)
+        total += target
+      end
+    end
+
+    return total
+  end
+
+  def has_solution_with_concatenation(target, numbers, current_result = 0)
+    if (current_result > target)
+      return false
+    end
+
+    if (numbers.length() == 0)
+      return target == current_result
+    end
+
+    next_number = numbers[0]
+    
+    if (current_result == 0)
+      return has_solution_with_concatenation(target, numbers.drop(1), next_number)
+    end
+
+    added_number = current_result + next_number
+    multiplied_number = current_result * next_number
+    concatenated_number = Integer(String(current_result) + String(next_number))
+
+    return has_solution_with_concatenation(target, numbers.drop(1), added_number) || has_solution_with_concatenation(target, numbers.drop(1), multiplied_number) || has_solution_with_concatenation(target, numbers.drop(1), concatenated_number)
+  end
+
 end

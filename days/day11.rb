@@ -6,37 +6,40 @@ class Day11
   def part1()
     stones = @@InputParserHelper.get_text().split(/\s+/).map(&:to_i)
 
-    return blink_stones(stones, 25).count()
+    return blink_stones(stones, 25)
+  end
+
+  def part2()
+    stones = @@InputParserHelper.get_text().split(/\s+/).map(&:to_i)
+
+    return blink_stones(stones, 75)
   end
 
   def blink_stones(stones, amount)
-    (1..amount).each do |_|
-      new_stones = []
+    stone_count = 0
 
-      stones.each do |stone|
-        added_stones = blink_stone(stone)
-        added_stones.each do |added_stone|
-          new_stones << added_stone
-        end
-      end
-
-      stones = new_stones
+    stones.each do |stone|
+      stone_count += blink_stone(stone, amount)
     end
 
-    return stones
+    return stone_count
   end
 
-  def blink_stone(stone)
+  def blink_stone(stone, amount)
+    if (amount == 0)
+      return 1
+    end
+    
     if (stone == 0)
-      return [1]
+      return blink_stone(1, amount - 1)
     end
 
     stone_string = String(stone)
     stone_string_length = stone_string.length()
     if (stone_string_length % 2 == 0)
-      return [stone_string[0, stone_string_length / 2], stone_string[stone_string_length / 2..-1]].map(&:to_i)
+      return blink_stone(stone_string[0, stone_string_length / 2].to_i(), amount - 1) + blink_stone(stone_string[stone_string_length / 2..-1].to_i(), amount - 1)
     end
 
-    return [stone * 2024]
+    return blink_stone(stone * 2024, amount - 1)
   end
 end

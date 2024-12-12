@@ -9,12 +9,6 @@ class Day11
     return blink_stones(stones, 25)
   end
 
-  def part2()
-    stones = @@InputParserHelper.get_text().split(/\s+/).map(&:to_i)
-
-    return blink_stones(stones, 75)
-  end
-
   def blink_stones(stones, amount)
     stone_count = 0
 
